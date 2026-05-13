@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Tomcat SUSE Log Maker
+# Fetches and formats Tomcat changelogs from Apache website
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+JAR_FILE="$SCRIPT_DIR/target/tomcat-changelog-processor.jar"
+
+# Check if JAR exists
+if [ ! -f "$JAR_FILE" ]; then
+    echo "Error: JAR file not found at $JAR_FILE"
+    echo "Please build the project first with: mvn clean package"
+    exit 1
+fi
+
+# Run the JAR with all arguments passed to this script
+java -jar "$JAR_FILE" "$@"
